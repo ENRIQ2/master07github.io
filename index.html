@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Formulario de registro con múltiples pasos</title>
+  <link rel="stylesheet" href="app.css">
+</head>
+
+<body>
+  <div class="root">
+    <!-- BOTONES PARA VER FORMULARIO O VER TABLA DE PACIENTES REGISTRADOS -->
+    <div>
+      <button id="see-form" class="action active">Ver formulario</button>
+      <button id="see-patients" class="action">Ver pacientes registrados</button>
+    </div>
+
+    <br>
+
+    <form id="form-register" class="form-register">
+      <div class="form-register__header">
+        <ul class="progressbar">
+          <li class="progressbar__option active">Paciente</li>
+          <li class="progressbar__option">Familiar</li>
+          <li class="progressbar__option">Condiciones</li>
+          <li class="progressbar__option">Internam</li>
+          <li class="progressbar__option">Datos </li>
+        </ul>
+      </div>
+
+      <h1 class="form-register__title"> Hospital Oriental</h1>
+
+      <div class="form-register__body">
+        <div class="step active" id="step-1">
+          <div class="step__header">
+            <h2 class="step__title">Información personal <small>(Paso 1)</small></h2>
+          </div>
+          <div class="step__body" data-step-data="1">
+            <input type="text" name="name" placeholder="Nombre" class="step__input">
+            <input type="text" name="lastname" placeholder="Apellido" class="step__input">
+            <input type="text" name="phoneNumber" placeholder="Teléfono" class="step__input">
+            <input type="text" name="nationality" placeholder="Nacionalidad" class="step__input">
+            <input type="text" name="gender" placeholder="Genero" class="step__input">
+            <input type="text" name="typeBlood" placeholder="Tipo de sangre" class="step__input">
+            <textarea rows="4" name="address" cols="80" placeholder="Dirección" class="step__input"></textarea>
+          </div>
+          <div class="step__footer">
+            <button type="button" class="step__button step__button--next" data-to_step="2"
+              data-step="1">Siguiente</button>
+          </div>
+        </div>
+
+        <div class="step" id="step-2">
+          <div class="step__header">
+            <h2 class="step__title">Información parentezco <small>(Paso 2)</small></h2>
+          </div>
+          <div class="step__body" data-step-data="2">
+            <input type="text" name="familiarName" placeholder="Nombre" class="step__input">
+            <input type="text" name="familiarLastname" placeholder="Apellido" class="step__input">
+            <input type="text" name="familiarAge" placeholder="Edad" class="step__input">
+            <input type="text" name="familiarRelationship" placeholder="Relacion" class="step__input">
+            <input type="text" name="familiarContact" placeholder="Contacto" class="step__input">
+            <textarea rows="4" cols="80" name="familiarDetails" placeholder="Detalles" class="step__input"></textarea>
+          </div>
+          <div class="step__footer">
+            <button type="button" class="step__button step__button--back" data-to_step="1"
+              data-step="2">Regresar</button>
+            <button type="button" class="step__button step__button--next" data-to_step="3"
+              data-step="2">Siguiente</button>
+          </div>
+        </div>
+        <div class="step" id="step-3">
+          <div class="step__header">
+            <h2 class="step__title">Condiciones pre-existente <small>(Paso 3)</small></h2>
+          </div>
+          <div class="step__body" data-step-data="3">
+            <input type="text" name="conditionDisease" placeholder="Enfermedad" class="step__input">
+            <input type="text" name="conditionTimeDisease" placeholder="Tiempo con la Enfermedad" class="step__input">
+            <textarea rows="4" name="conditionDetails" cols="80" placeholder="Detalles" class="step__input"></textarea>
+          </div>
+
+          <div class="step__footer">
+            <button type="button" class="step__button step__button--back" data-to_step="2"
+              data-step="3">Regresar</button>
+
+            <button type="button" class="step__button step__button--next" data-to_step="4"
+              data-step="3">Siguiente</button>
+          </div>
+
+        </div>
+        <div class="step" id="step-4">
+          <div class="step__header">
+            <h2 class="step__title">Internamientos realizados <small>(Paso 4)</small></h2>
+          </div>
+          <div class="step__body" data-step-data="4">
+            <input type="text" name="date" placeholder="Fecha" class="step__input">
+            <input type="text" name="medicalCenter" placeholder="Centro medico" class="step__input">
+            <textarea rows="4" cols="80" name="diagnosis" placeholder="Diagnostico" class="step__input"></textarea>
+          </div>
+
+          <div class="step__footer">
+            <button type="button" class="step__button step__button--back" data-to_step="3"
+              data-step="4">Regresar</button>
+            <button type="button" class="step__button step__button--next" data-to_step="5"
+              data-step="4">Siguiente</button>
+          </div>
+        </div>
+
+        <!-- PASO 5 -->
+        <div class="step" id="step-5">
+          <div id="all-patient-data" class="patients-data"></div>
+
+          <br>
+
+          <div>
+            <button type="button" class="step__button step__button--back" data-to_step="4"
+              data-step="5">Regresar</button>
+            <button type="button" id="register-patient" class="step__button">Registrar</button>
+          </div>
+        </div>
+
+
+      </div>
+    </form>
+
+    <!-- TABLA DE Pacientes registrados -->
+    <table id="patients-registered" class="patients-registered hidden">
+      <thead>
+        <tr>
+          <th>Nro</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Ver</th>
+          <th>Editar</th>
+          <th>Borrar</th>
+        </tr>
+      </thead>
+      <!-- AQUI SE AGREGAN LOS PACIENTES DESDE JAVASCRIPT -->
+      <tbody id="patients-registered-list"></tbody>
+    </table>
+
+    <!-- VENTANA MODAL CON LOS DATOS DEL PACIENTE -->
+    <div id="modal-container" class="modal-container">
+      <button id="close-modal">Cerrar</button>
+      <div id="modal-content" class="modal-content">
+      </div>
+    </div>
+
+  </div>
+  <script src="app.js"></script>
+</body>
+
+</html>
